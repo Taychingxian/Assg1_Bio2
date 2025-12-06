@@ -69,40 +69,39 @@ def traceback_alignment(seq1, seq2, matrix, traceback, max_pos, is_local=False):
     path = []
     
     while i > 0 or j > 0:
+        path.append((i, j))
+        
         if is_local and traceback[i, j] == 0:
             break
-
-        current_path_cell = (i, j)
-        path.append(current_path_cell)
         
         move = traceback[i, j]
         
-        if move == 1:
+        if move == 1 and i > 0 and j > 0:
             aligned_seq1 = seq1[i-1] + aligned_seq1
             aligned_seq2 = seq2[j-1] + aligned_seq2
             i -= 1
             j -= 1
-        elif move == 2:
+        elif move == 2 and i > 0:
             aligned_seq1 = seq1[i-1] + aligned_seq1
             aligned_seq2 = "-" + aligned_seq2
             i -= 1
-        elif move == 3:
+        elif move == 3 and j > 0:
             aligned_seq1 = "-" + aligned_seq1
             aligned_seq2 = seq2[j-1] + aligned_seq2
             j -= 1
-        elif not is_local and (i == 0 or j == 0):
-            if i > 0:
-                aligned_seq1 = seq1[i-1] + aligned_seq1
-                aligned_seq2 = "-" + aligned_seq2
-                i -= 1
-            elif j > 0:
-                aligned_seq1 = "-" + aligned_seq1
-                aligned_seq2 = seq2[j-1] + aligned_seq2
-                j -= 1
+        elif i > 0:
+            aligned_seq1 = seq1[i-1] + aligned_seq1
+            aligned_seq2 = "-" + aligned_seq2
+            i -= 1
+        elif j > 0:
+            aligned_seq1 = "-" + aligned_seq1
+            aligned_seq2 = seq2[j-1] + aligned_seq2
+            j -= 1
         else:
             break
     
-    path.append((i, j))
+    if i == 0 and j == 0:
+        path.append((0, 0))
     
     return aligned_seq1, aligned_seq2, path[::-1]
 
