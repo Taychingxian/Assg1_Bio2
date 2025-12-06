@@ -1,8 +1,4 @@
 # Assg1_Bio2
-# Sequence Alignment Tool (Dynamic Programming)
-
-**Student Name:** TAY CHING XIAN  
-**Matric ID:** A23CS0307
 
 ## 📖 Description
 This is an interactive web-based tool built with **Streamlit** to visualize and perform biological sequence alignment using Dynamic Programming. It supports both **Global Alignment** (Needleman-Wunsch) and **Local Alignment** (Smith-Waterman).
