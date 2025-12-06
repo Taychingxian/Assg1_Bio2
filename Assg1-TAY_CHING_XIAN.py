@@ -159,7 +159,9 @@ try:
 
     st.subheader("📊 Alignment Matrix (Score)")
 
-    matrix_df = pd.DataFrame(matrix, index=["-"] + list(seq_a), columns=["-"] + list(seq_b))
+    row_labels = ["-"] + [f"{seq_a[i]}({i+1})" for i in range(len(seq_a))]
+    col_labels = ["-"] + [f"{seq_b[j]}({j+1})" for j in range(len(seq_b))]
+    matrix_df = pd.DataFrame(matrix, index=row_labels, columns=col_labels)
     
     def highlight_path(data):
         styles = pd.DataFrame('', index=data.index, columns=data.columns)
@@ -184,7 +186,7 @@ try:
     st.subheader("↩️ Traceback Path")
     st.info("The path highlights the cells used to derive the optimal alignment. For Local Alignment, it starts at the maximum score and stops at a cell with score 0.")
 
-    traceback_df = pd.DataFrame(traceback, index=["-"] + list(seq_a), columns=["-"] + list(seq_b))
+    traceback_df = pd.DataFrame(traceback, index=row_labels, columns=col_labels)
     
     traceback_symbols = traceback_df.replace({
         0: '◼️',
